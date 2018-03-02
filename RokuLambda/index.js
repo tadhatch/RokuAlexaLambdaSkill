@@ -2,6 +2,8 @@ var AlexaSkill = require("./AlexaSkill");
 var serverinfo = require("./serverinfo");
 var http = require("http");
 
+console.log("index running");
+
 if (serverinfo.host == "127.0.0.1") {
     throw "Default hostname found, edit your serverinfo.js file to include your server's external IP address";
 }
@@ -237,7 +239,7 @@ AlexaRoku.prototype.intentHandlers = {
     },
     SearchChannel: function (intent, session, response) {
         // join multiple slot values with arbitrary ampersand, which we will split in server code.
-        var slots = intent.slots.Text.value + "&" + intent.slots.Channel.value
+        var slots = intent.slots.Text.value + "&" + intent.slots.Channel.value;
         sendCommand("/roku/searchChannel",slots,function() {
             response.tellWithCard("Searching: " + intent.slots.Text.value + " on " + intent.slots.Channel.value, "Roku", "Playing: "+intent.slots.Text.value+" on "+ intent.slots.Channel.value);
         });
@@ -249,5 +251,7 @@ AlexaRoku.prototype.intentHandlers = {
 
 exports.handler = function (event, context) {
     var roku = new AlexaRoku();
+    console.log("===EVENT===" + JSON.stringify(event));
     roku.execute(event, context);
 };
+

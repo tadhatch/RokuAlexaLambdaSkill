@@ -32,6 +32,10 @@ function searchForRoku() {
     }
 }
 
+function postdata() {
+  console.log('post');
+}
+
 //a simple wrapper to post to a url with no payload (to send roku commands)
 function post(url,callback) {
     var info = urllib.parse(url);
